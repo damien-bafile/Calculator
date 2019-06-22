@@ -1,12 +1,16 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿//Author Name: Damien Bafile
+//Creation Date: 13/06/2019
+//Version Control: https://github.com/damien-bafile
+//
+
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Calculator")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Basic Scientific Calculator")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Calculator")]
