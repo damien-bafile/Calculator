@@ -18,15 +18,15 @@ namespace Calculator
     /// </summary>
     public partial class FrmCalculator : Form
     {
-        //Add comments here that explain these 4 Operator methods
-        //Explain each of the Variables
-        private double _amountA; //Change these names to improve clarity
-        private double? _amountB; //Try using the built-in REFACTOR
+        private bool _clear; // For checking if the txtDisplay needs clearing
         private bool _divideButtonClicked;
         private bool _minusButtonClicked;
         private bool _multiplyButtonClicked;
         private bool _negativeButtonClicked;
         private bool _plusButtonClicked;
+
+        private double _tempValue; // Temporary variable for Arithmetic operations
+        private double? _totalAmount;
 
         /// <summary>
         ///     Constructor class
@@ -44,81 +44,217 @@ namespace Calculator
         /// <param name="e"></param>
         private void btnEquals_Click(object sender, EventArgs e)
         {
-            // Check which flags have been checked
             if (_plusButtonClicked)
-                _amountB = Arithmetic.Addition(_amountA, double.Parse(txtDisplay.Text));
+                _totalAmount = Arithmetic.Addition(_tempValue, double.Parse(txtDisplay.Text));
             else if (_minusButtonClicked)
-                _amountB = Arithmetic.Subtraction(_amountA, double.Parse(txtDisplay.Text));
+                _totalAmount = Arithmetic.Subtraction(_tempValue, double.Parse(txtDisplay.Text));
             else if (_divideButtonClicked)
-                _amountB = Arithmetic.Divide(_amountA, double.Parse(txtDisplay.Text));
-            else if (_multiplyButtonClicked) _amountB = Arithmetic.Multiply(_amountA, double.Parse(txtDisplay.Text));
+                _totalAmount = Arithmetic.Divide(_tempValue, double.Parse(txtDisplay.Text));
+            else if (_multiplyButtonClicked)
+                _totalAmount = Arithmetic.Multiply(_tempValue, double.Parse(txtDisplay.Text));
+            
 
-            txtDisplay.Text = _amountB == null ? Resources.cannotDivBy0 : _amountB.ToString();
+            txtDisplay.Text = _totalAmount == null ? Resources.cannotDivBy0 : _totalAmount.ToString();
+            if (_totalAmount == null)
+            {
+                txtDisplay.Text = Resources.cannotDivBy0;
+            }
+            else
+            {
+                txtDisplay.Text = _totalAmount.ToString();
+                _negativeButtonClicked = _totalAmount < 0 ? true : false;
+            }
 
-            _amountA = 0;
+            _clear = true;
+            _tempValue = 0;
+        }
+
+        private void txtDisplay_TextChanged(object sender, EventArgs e)
+        {
         }
 
         #region Number Buttons
 
+        /// <summary>
+        ///     Prints 1 to txtDisplay
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOne_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text += btnOne.Text;
+            if (_clear)
+            {
+                txtDisplay.Text = btnOne.Text;
+                _clear = false;
+            }
+            else
+            {
+                txtDisplay.Text += btnOne.Text;
+            }
+
+            btnEquals.Select();
         }
 
+        /// <summary>
+        ///     Prints 2 to txtDisplay
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnTwo_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text += btnTwo.Text;
+            if (_clear)
+            {
+                txtDisplay.Text = btnTwo.Text;
+                _clear = false;
+            }
+            else
+            {
+                txtDisplay.Text += btnTwo.Text;
+            }
+
+            btnEquals.Select();
         }
 
+        /// <summary>
+        ///     Prints 3 to txtDisplay
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnThree_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text += btnThree.Text;
+            if (_clear)
+                txtDisplay.Text = btnThree.Text;
+            else
+                txtDisplay.Text += btnThree.Text;
+            btnEquals.Select();
         }
 
+        /// <summary>
+        ///     Prints 4 to txtDisplay
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFour_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text = txtDisplay.Text + btnFour.Text;
+            if (_clear)
+                txtDisplay.Text = btnFour.Text;
+            else
+                txtDisplay.Text += btnFour.Text;
+            btnEquals.Select();
         }
 
+        /// <summary>
+        ///     Prints 5 to txtDisplay
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFive_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text = txtDisplay.Text + btnFive.Text;
+            if (_clear)
+                txtDisplay.Text = btnFive.Text;
+            else
+                txtDisplay.Text += btnFive.Text;
+            btnEquals.Select();
         }
 
+        /// <summary>
+        ///     Prints 6 to txtDisplay
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSix_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text = txtDisplay.Text + btnSix.Text;
+            if (_clear)
+                txtDisplay.Text = btnSix.Text;
+            else
+                txtDisplay.Text += btnSix.Text;
+            btnEquals.Select();
         }
 
+        /// <summary>
+        ///     Prints 7 to txtDisplay
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSeven_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text = txtDisplay.Text + btnSeven.Text;
+            if (_clear)
+                txtDisplay.Text = btnSeven.Text;
+            else
+                txtDisplay.Text += btnSeven.Text;
+            btnEquals.Select();
         }
 
+        /// <summary>
+        ///     Prints 8 to txtDisplay
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEight_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text = txtDisplay.Text + btnEight.Text;
+            if (_clear)
+                txtDisplay.Text = btnEight.Text;
+            else
+                txtDisplay.Text += btnEight.Text;
+            btnEquals.Select();
         }
 
+        /// <summary>
+        ///     Prints 9 to txtDisplay
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnNine_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text = txtDisplay.Text + btnNine.Text;
+            if (_clear)
+                txtDisplay.Text = btnNine.Text;
+            else
+                txtDisplay.Text += btnNine.Text;
+            btnEquals.Select();
         }
 
+        /// <summary>
+        ///     Prints 0 to txtDisplay
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnZero_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text = txtDisplay.Text + btnZero.Text;
+            if (_clear)
+                txtDisplay.Text = btnZero.Text;
+            else
+                txtDisplay.Text += btnZero.Text;
+            btnEquals.Select();
         }
 
+        /// <summary>
+        ///     Prints . to txtDisplay
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnPoint_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text = txtDisplay.Text + btnPoint.Text;
+            txtDisplay.Text += txtDisplay.Text.Contains(".") ? "" : ".";
+            btnEquals.Select();
         }
 
+        /// <summary>
+        ///     Clears txtDisplay
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnClear_Click(object sender, EventArgs e)
         {
             txtDisplay.Clear();
+            _clear = false;
+            _totalAmount = 0;
+            _totalAmount = 0;
+            _plusButtonClicked = false;
+            _minusButtonClicked = false;
+            _divideButtonClicked = false;
+            _multiplyButtonClicked = false;
             _negativeButtonClicked = false;
+            btnEquals.Select();
         }
 
         #endregion
@@ -132,13 +268,16 @@ namespace Calculator
         /// <param name="e"></param>
         private void btnPlus_Click(object sender, EventArgs e)
         {
-            _amountA += double.Parse(txtDisplay.Text);
-            txtDisplay.Clear();
-
-            _plusButtonClicked = true;
-            _minusButtonClicked = false;
-            _divideButtonClicked = false;
-            _multiplyButtonClicked = false;
+            if (!string.IsNullOrEmpty(txtDisplay.Text))
+            {
+                _tempValue += double.Parse(txtDisplay.Text);
+                txtDisplay.Clear();
+                _plusButtonClicked = true;
+                _minusButtonClicked = false;
+                _divideButtonClicked = false;
+                _multiplyButtonClicked = false;
+                btnEquals.Select();
+            }
         }
 
         /// <summary>
@@ -149,8 +288,7 @@ namespace Calculator
         {
             if (_negativeButtonClicked == false && !string.IsNullOrWhiteSpace(txtDisplay.Text))
             {
-                _negativeButtonClicked = true;
-                _amountA += double.Parse(txtDisplay.Text);
+                _tempValue += double.Parse(txtDisplay.Text);
                 txtDisplay.Clear();
 
                 _plusButtonClicked = false;
@@ -160,27 +298,11 @@ namespace Calculator
             }
             else if (_negativeButtonClicked == false && string.IsNullOrWhiteSpace(txtDisplay.Text))
             {
-                _negativeButtonClicked = true;
                 txtDisplay.Text = Resources.negativeSymbol;
+                _negativeButtonClicked = true;
             }
-            else if (_negativeButtonClicked && txtDisplay.Text.Substring(0, 1) == "-")
-            {
-                _negativeButtonClicked = false;
-                _amountA += double.Parse(txtDisplay.Text);
-                txtDisplay.Clear();
 
-                _plusButtonClicked = false;
-                _minusButtonClicked = true;
-                _divideButtonClicked = false;
-                _multiplyButtonClicked = false;
-            }
-            else
-            {
-                _plusButtonClicked = false;
-                _minusButtonClicked = true;
-                _divideButtonClicked = false;
-                _multiplyButtonClicked = false;
-            }
+            btnEquals.Select();
         }
 
         /// <summary>
@@ -190,13 +312,18 @@ namespace Calculator
         /// <param name="e"></param>
         private void btnMultiply_Click(object sender, EventArgs e)
         {
-            _amountA += double.Parse(txtDisplay.Text);
-            txtDisplay.Clear();
+            if (!string.IsNullOrEmpty(txtDisplay.Text))
+            {
+                _tempValue += double.Parse(txtDisplay.Text);
+                txtDisplay.Clear();
 
-            _plusButtonClicked = false;
-            _minusButtonClicked = false;
-            _divideButtonClicked = false;
-            _multiplyButtonClicked = true;
+                _plusButtonClicked = false;
+                _minusButtonClicked = false;
+                _divideButtonClicked = false;
+                _multiplyButtonClicked = true;
+            }
+
+            btnEquals.Select();
         }
 
         /// <summary>
@@ -206,13 +333,19 @@ namespace Calculator
         /// <param name="e"></param>
         private void btnDivide_Click(object sender, EventArgs e)
         {
-            _amountA += double.Parse(txtDisplay.Text);
-            txtDisplay.Clear();
+            double temp;
+            if (!string.IsNullOrEmpty(txtDisplay.Text))
+            {
+                _tempValue += double.Parse(txtDisplay.Text);
+                txtDisplay.Clear();
 
-            _plusButtonClicked = false;
-            _minusButtonClicked = false;
-            _divideButtonClicked = true;
-            _multiplyButtonClicked = false;
+                _plusButtonClicked = false;
+                _minusButtonClicked = false;
+                _divideButtonClicked = true;
+                _multiplyButtonClicked = false;
+            }
+
+            btnEquals.Select();
         }
 
         #endregion
@@ -229,22 +362,25 @@ namespace Calculator
             try
             {
                 var result = Trigonometric.Tangent(double.Parse(txtDisplay.Text));
-                if (double.IsNaN(result.Value))
+                if (double.IsNaN(result.Value) == null)
                 {
                     txtDisplay.Text = Resources.invalidText;
-                    _amountA = 0;
+                    _tempValue = 0;
                 }
                 else
                 {
                     txtDisplay.Text = result.ToString();
-                    _amountA = 0;
+                    _tempValue = 0;
                 }
             }
             catch (Exception)
             {
                 txtDisplay.Text = Resources.invalidText;
-                _amountA = 0;
+                _tempValue = 0;
             }
+
+            btnEquals.Select();
+            _clear = true;
         }
 
         /// <summary>
@@ -258,12 +394,15 @@ namespace Calculator
             {
                 var result = Trigonometric.Sine(double.Parse(txtDisplay.Text));
                 txtDisplay.Text = result.ToString(CultureInfo.InvariantCulture);
-                _amountA = 0;
+                _tempValue = 0;
             }
             catch (Exception)
             {
                 txtDisplay.Text = Resources.invalidText;
             }
+
+            btnEquals.Select();
+            _clear = true;
         }
 
         /// <summary>
@@ -277,12 +416,15 @@ namespace Calculator
             {
                 var result = Trigonometric.Cosine(double.Parse(txtDisplay.Text));
                 txtDisplay.Text = result.ToString(CultureInfo.InvariantCulture);
-                _amountA = 0;
+                _tempValue = 0;
             }
             catch (Exception)
             {
                 txtDisplay.Text = Resources.invalidText;
             }
+
+            btnEquals.Select();
+            _clear = true;
         }
 
         #endregion
@@ -299,7 +441,9 @@ namespace Calculator
             txtDisplay.Text = Algebraic.SquareRoot(double.Parse(txtDisplay.Text)) != null
                 ? Algebraic.SquareRoot(double.Parse(txtDisplay.Text)).ToString()
                 : "Number Not Possible";
-            _amountA = 0;
+            _tempValue = 0;
+            btnEquals.Select();
+            _clear = true;
         }
 
         /// <summary>
@@ -309,8 +453,12 @@ namespace Calculator
         /// <param name="e"></param>
         private void btnCubeRoot_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text = Algebraic.CubeRoot(double.Parse(txtDisplay.Text)).ToString(CultureInfo.InvariantCulture);
-            _amountA = 0;
+            txtDisplay.Text = Algebraic.CubeRoot(double.Parse(txtDisplay.Text)).ToString();
+            _tempValue = 0;
+            btnEquals.Select();
+            btnEquals.Select();
+            btnEquals.Select();
+            _clear = true;
         }
 
         /// <summary>
@@ -320,12 +468,15 @@ namespace Calculator
         /// <param name="e"></param>
         private void btnInverse_Click(object sender, EventArgs e)
         {
-            if (Algebraic.Inverse(double.Parse(txtDisplay.Text)) != null)
-                txtDisplay.Text = Algebraic.Inverse(double.Parse(txtDisplay.Text)).ToString();
-            else
-                txtDisplay.Text = Resources.cannotDivBy0;
+            txtDisplay.Text = Algebraic.Inverse(double.Parse(txtDisplay.Text)) != null
+                ? Algebraic.Inverse(double.Parse(txtDisplay.Text)).ToString()
+                : Resources.cannotDivBy0;
 
-            _amountA = 0;
+            _tempValue = 0;
+            btnEquals.Select();
+            btnEquals.Select();
+            btnEquals.Select();
+            _clear = true;
         }
 
         #endregion
@@ -388,7 +539,7 @@ namespace Calculator
         private void FrmCalculator_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape) btnClear.PerformClick();
-
+            if (e.KeyCode == Keys.Enter) btnEquals.PerformClick();
             if (e.Control && e.KeyCode == Keys.C)
             {
                 txtDisplay.SelectAll();
